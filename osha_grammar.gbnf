@@ -1,0 +1,19 @@
+# Root rule defining the entire labeling output
+root ::= label
+
+# Each label must be a field name followed by one of the allowed labels for that field
+label ::= fatal fault job score free
+
+# Definitions for each label type
+fatal ::= "Fatal: " ("yes" | "no" | "unknown") "\n"
+fault ::= "Fault: " ("employee" | "company" | "other") "\n"
+job ::= "Job: " ("agriculture" | "construction" | "manufacturing" | "retail" | "other") "\n"
+score ::= "Incident Severity: " ([1-5] | "unknown") "\n"
+free ::= "Cause: " word
+
+word ::= letter | letter letter | letter letter letter | letter letter letter letter |
+         letter letter letter letter letter | letter letter letter letter letter letter |
+         letter letter letter letter letter letter letter | letter letter letter letter letter letter letter letter |
+         letter letter letter letter letter letter letter letter letter | letter letter letter letter letter letter letter letter letter letter | letter letter letter letter letter letter letter letter letter letter letter | letter letter letter letter letter letter letter letter letter letter letter letter | letter letter letter letter letter letter letter letter letter letter letter letter letter
+
+letter ::= [a-z]

@@ -1,0 +1,459 @@
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+# Task:
+The comments that you are given are a patient describing their visit at a hospital.
+Label the patient feedback data based on the different fields.
+If there is no context for the field, return 'unknown' for the field.
+Because the comments are anonymized, [person_name] represents an identify name that has been anonymized.
+If the comment is '(BLANK)', '(INAUDIBLE)' or '(unreadable)', just label 'unknown' for all categories unless you can extract meaningful statements.
+If the comment appears incomplete or a fragment, just label 'unknown' for all categories unless you can extract meaningful statements.
+Consider the sentiment of the patient feedback before labeling.
+Return only the label structure as follows:
+
+# Output Structure:
+Expectations Met: [Label]
+Trust in Staff: [Label]
+Feeling of Safety: [Label]
+Positive Experience: [Label]
+Dirty: [Label]
+Risks/Challenges: [Label]
+Actions/Strategies: [Label]
+Facilitators: [Label]
+Visit Rating: [1-5]
+
+
+# Output Labels:
+Expectations Met:
+This field evaluates whether the patient's expectations regarding their visit, treatment, or service were met. Possible labels:
+yes: The patient's expectations were met. Make sure that the patient is not being sarcastic, as that means that their expectations probably have not been met.
+no: The patient's expectations were not met.
+unknown: It is unclear or not recorded whether the patient's expectations were met.
+
+Trust in Staff:
+This measures the patient's level of trust in the medical staff's competence and intentions. Possible labels:
+yes: The patient trusted the staff.
+no: The patient did not trust the staff.
+unknown: It is unclear or not recorded whether the patient trusted the staff.
+
+Feeling of Safety:
+This field assesses the patient's perception of safety during their stay or visit. Possible labels:
+yes: The patient felt safe.
+no: The patient did not feel safe.
+unknown: It is unclear or not recorded whether the patient felt safe.
+
+Positive Experience:
+This field indicates whether the overall experience of the patient was positive. Possible labels:
+yes: The patient had a positive experience.
+no: The patient had a negative experience.
+unknown: It is unclear or not recorded what the patient's overall experience was.
+
+Dirty:
+Label as 'unknown' if no Possible labels:
+yes: Hospital is specifically mentioned as being dirty.
+no: Hospital is specifically mentioned as being clean.
+unknown: Nothing about cleanliness is mentioned. Default.
+
+Risks/Challenges:
+This field identifies any risks or challenges faced during the patient's care or stay. Possible labels:
+unknown: Default
+user_error
+insurance_issue: The feedback mentions an issue with health insurance.
+waiting_time: Anything about a long wait time is mentioned.
+safety_resources
+public_concern
+safety_concern: The feedback mentions a safety concern in the hospital.
+public_external
+resources_waiting
+waiting_external
+insurance_error
+safety_waiting
+safety_user
+user_waiting
+
+Actions/Strategies:
+This field details any actions or strategies employed to address the patient's needs or the circumstances of their care. Possible labels:
+unknown: Default
+communication_staff: The feedback indicates that communication with hospital staff helped them solve their issue.
+communication_interaction
+use_resources: The feedback indicates that the hospital was resourceful in treating them.
+
+Facilitators:
+This field covers the resources or factors that facilitated the patient's care positively. Possible labels:
+unknown: Default
+resources_caring: The feedback indicates that the staff were kind or caring in the service provided.
+resources_documentation: The feedback specifically mentions staff using documentation or records.
+quick_response: The patient was pleased with a short wait time in the feedback.
+
+Visit Rating:
+Return a number from 1 to 5 depending on how well the patient's visit went according to the feedback.
+1: Worst Treatment
+2: Bad Treatment
+3. Mediocre Treatment
+4. Good Treatment
+5. Best Treatment
+unknown: Default, if a score cannot be inferred from feedback.
+
+<|eot_id|>
+
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: Waited 6 hours to be seen with a hear issue. Waited another hour for an xray and was sent home an hour after. The next day i was rushed to st frances in an ambulance for same issues. Never again will i go to prisma hospital
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: No
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: No
+Dirty: Unknown
+Risks/Challenges: waiting_time
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: No comment
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Unknown
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: Unknown
+Dirty: Unknown
+Risks/Challenges: unknown
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: Took all day for 5 min of info.
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Unknown
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: Unknown
+Dirty: Unknown
+Risks/Challenges: unknown
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: Took us four hour to get out of there. ..Biggest issue was a 14 year old and parent waiting with the babies. Screaming, coughing, unmasked babies. It seems there should be an infant room vs a 7 year old and up room vs an older kid who could wait with adults
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: No
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: No
+Dirty: Unknown
+Risks/Challenges: waiting_external_challenge
+Actions/Strategies: unknown
+Facilitators: resources_caring
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: We the uninsured and least able to get medical care without the help of another person, are not all the same and require a no judgement zone.  Don't take the word care and replace it with treatment.
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Unknown
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: No
+Dirty: Unknown
+Risks/Challenges: insurance_issue
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: Everyone that was on 3rd shift on [person_name] 22nd was phenomenal! I absolutely would always recommend prisma!
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Yes
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: Yes
+Dirty: Unknown
+Risks/Challenges: unknown
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: The worst experience I've ever had at a ER!!!
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: No
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: No
+Dirty: Unknown
+Risks/Challenges: unknown
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: Nothing it was great
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Yes
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: Yes
+Dirty: Unknown
+Risks/Challenges: unknown
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: (unreadable)
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Unknown
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: unknown
+Dirty: unknown
+Risks/Challenges: Unknown
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: They were very fast with attending my child and very respectful. They were sweet & caring. I definitely like coming to this hospital, I've brought my child here plenty times & definitely would come again.
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Yes
+Trust in Staff: Yes
+Feeling of Safety: Unknown
+Positive Experience: Yes
+Dirty: Unknown
+Risks/Challenges: unknown
+Actions/Strategies: unknown
+Facilitators: quick_resources_caring
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: There is nothing that needs to be changed I had exceptional care and courtesy from everyone in the whole department
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Yes
+Trust in Staff: Yes
+Feeling of Safety: Unknown
+Positive Experience: Yes
+Dirty: Unknown
+Risks/Challenges: unknown
+Actions/Strategies: unknown
+Facilitators: resources_caring
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: The care everything I received there that evening was. Fine was very good. Except for, when I first got there it was a patient complaining about a nurse a [person_name] lady. She was just very abrasive, nasty. Rough. [person_name] [person_name] haired lady. I'm trying to think. I think she, I want to say she was was wearing glasses, if she wasn't but Another time she was pushing the guy so fast and your chair. He was complaining front wheel shaking it was like, slow down, you know, she was hurting him and he's a client her about she was just The way she talked to other nurses there. And then when I got in the back, there were 2 room is dark skinned fellows back there. In the ER.*
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Yes
+Trust in Staff: Unknown
+Feeling of Safety: No
+Positive Experience: No
+Dirty: Unknown
+Risks/Challenges: public_concern
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: The treatment I received was done with care and explained every step of the way. The staff including the aides transporting to and from [person_name] were energetic and polite .
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Yes
+Trust in Staff: Yes
+Feeling of Safety: Unknown
+Positive Experience: Yes
+Dirty: Unknown
+Risks/Challenges: unknown
+Actions/Strategies: staff_interaction
+Facilitators: resources_caring
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: My biggest concern during my visit to the emergency room, I felt I got good care.  However I was as having spent 20 years in the health care field working in an outpatient clinic of a hospital, I was very concerned about HIPAA.  There was a gentleman outside the cubicle I was in, the curtain was not pulled for the curtain that I was in.  I could see what was happening, the care that this gentleman was receiving.  I could see the staff talking about what had happened to him, why he was receiving the care that he was getting.  He was not in a cubicle, just out in the hallway outside my cubicle.  The other concern I had and I did not realize it, I didn't stop to look until after I was too far by, was when my husband and I were leaving the emergency room, we walked by*
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Yes
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: Yes
+Dirty: Unknown
+Risks/Challenges: user_error
+Actions/Strategies: unknown
+Facilitators: resources_caring
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: I waited for over 5 hours for a room and to come to find out that another person was admitted to room [person_name] under my name.   It was the most horrible experience I would not recommend anyone to go to [person_name]
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: No
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: No
+Dirty: Unknown
+Risks/Challenges: user_waiting_time
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: i should have been allowed to come back with my wife because she is in a wheel chair and is legally blind to talk todoctors in her [place. the
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: No
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: Unknown
+Dirty: Unknown
+Risks/Challenges: unknown
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: All the nurses were amazing. Bridget and the rest of the staff was very helpful.
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Yes
+Trust in Staff: Yes
+Feeling of Safety: Unknown
+Positive Experience: Yes
+Dirty: Unknown
+Risks/Challenges: unknown
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: I was with my 84 year old dad who was there after a fall in his memory care facility. I am POA.  The doctors were both great, and the nurse that came on at 7pm 2/20 was great. However the nurse we had for the majority of the day, [person_name], was the worst  medical person I have encountered in my dad's entire journey with dementia. It was like she had never worked with elderly patients, especially dementia patients.  At one point I left the room to get food, and when I returned my dad was sitting up at the end of the bad trying to stand up. I pressed the call button for help and [person_name] came in and immediately was yelling at my dad.  Later she was trying to get my dad to take a pill and he was having trouble swallowing it, and again she was yelling at him to swallow it, and to open his mouth. at one point she grabbed his chin.  He was frustrated and confused (like any dementia pt would have been) and trying to take the cup and hold it himself and she scolded him for that too. He had not eaten anything all day, and around 5 I asked if I could give him some yogurt and she said she'd check with the doctor, and never got back to me about that. ..I was also surprised there was no bed alarm despite his fall risk bracelet, and I was not there when he came by ambulance, so when he was brought to that room they did not know someone would be in there with him. Had I not returned when I did to find him sitting on the end of the bed, he would fallen again for sure.
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: No
+Trust in Staff: No
+Feeling of Safety: Unknown
+Positive Experience: No
+Dirty: Unknown
+Risks/Challenges: safety_user_error
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: 1st shift nurses left vials of blood, open needle, dirty gloves, and trash from these things on tray. No soap in restroom. Things seemed unsanitary. Put in a shared room even though I was supposed to be in single room due to my illness. 2nd shift nurses were very professional and cleaned the mess that was left behind.
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Unknown
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: Unknown
+Dirty: Yes
+Risks/Challenges: unknown
+Actions/Strategies: unknown
+Facilitators: unknwon
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: It was absolutely the dirtiest emergency room that I have ever seen. The front desk people were on their phones the entire time I had to say excuse me the dirtiest emergency room that I have ever seen. The front desk people were on their phones the entire time I had to say excuse me 3 times to get their attention. The place was not cleaned. I had to get paper towels and hand sanitizer to wipe the area. We were sitting at down because there were dirty tissues on the floor. No toilet paper in the restrooms. The restrooms were worse than the county jail. As a nurse that has worked in the medical field for years I was absolutely terrified of what germs could affect my child with an autoimmune disease. We waited for 8 hours and no one offered us any water, blankets, or pillows even after we were back in a room. My daughter was processed as an acuity 2. I had tried to purchase water from the vending machines, but there was none available. I did buy two drinks but what my daughter needed was water, and that was never offered even after we made a comment. We chose not to be admitted because we would've had to stay in the emergency room until well after her specialist opened and it was too dirty and nasty and unaccommodating for us to be there so we opted to go home. The only positive thing I can say, is that the doctors communicated with us and each other amazingly.
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: No
+Trust in Staff: Yes
+Feeling of Safety: Unknown
+Positive Experience: No
+Dirty: Yes
+Risks/Challenges: public_resources
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: Overall vist was good, but follow up procedures and calls are not. The injury requires important follow that was not gone over with us thoroughly.
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Yes
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: Yes
+Dirty: Unknown
+Risks/Challenges: user_safety_concern
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: I had been running a fever, so my cancer doctor advised me to go to the ER for bloodwork.  I arrived there about 12:45PM.  The wait was endless.  All the nurses and hospital workers were outstanding.  Due to the cancer, throughout the day I would have bouts of pain.  One time the pain got rather severe.  But I had to sit hour upon hour uncomfortably in the chair.  They finally did the needed blood work around 6PM, I think.  We got the results of the bloodwork via My [person_name] around 7:30 or so.  My daughter is a [person_name] [person_name] and read the report and said there was no indication of any problem with the bloodwork.  So, after sitting in the ER for 9 hours, we decided to leave.  [person_name] realize that the hospitals are way understaffed and the beds are full.  However, something needs to be done to improve this situation...Some, if not all, of the questions should have a "not applicable" choice.  I was forced to answer some questions with a "no" answer because I couldn't choose "not applicable ".  An example is one question asked about the doctor I saw.  After 9 hours of waiting, we left without seeing a doctor.  I probably answered 4 or 5 questions with a no response because I couldn't choose NA.
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: No
+Trust in Staff: Yes
+Feeling of Safety: Unknown
+Positive Experience: No
+Dirty: Unknown
+Risks/Challenges: resources_waiting_time
+Actions/Strategies: resources_use
+Facilitators: resources_documentation
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: Service was excellent thank you
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Yes
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: Yes
+Dirty: Unknown
+Risks/Challenges: unknown
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: Left in the hallway with a broken toe / open wound throughout most of my visit...Pharmacy needs you guys to simply dial in to get it my pain medication released...Staff is rude on the phone and for some reason unable to make a phone call to my pharmacy to get my pain medicine released, three days after a broken big toe...Now I'm having to pay full price for my medicine because you all can't pick up the phone and make a call for me.
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: No
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: No
+Dirty: Unknown
+Risks/Challenges: safety_concern
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: Treat all people the same way if they have insurance or not!!!!!!!
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Unknown
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: No
+Dirty: Unknown
+Risks/Challenges: insurance_error
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: I wish i could remember the nurses name that gave me incredible care. [person_name] [person_name] was very personable and informative.  The two of them made me feel like i was getting excellent care.  The pct/cnas were very nice and helpful as well. ,  i was in a bad place physically and worried mentally and emotionally. The staff did ensign they could to provide care in an efficient and caring way.  Again i wish i could remember the names of the nurses and pct/cna that cared for me.  I would love to recognize them.  Also the staff that took care of the drama in waiting area while i was waiting did a great job and stayed professional while [person_name] career of the situation.  Overall, looking past the wait time which was broken u up by doing the tests while waiting,  my experience was very good.
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Yes
+Trust in Staff: Yes
+Feeling of Safety: Unknown
+Positive Experience: Yes
+Dirty: Unknown
+Risks/Challenges: waiting_time
+Actions/Strategies: staff_notified
+Facilitators: resources_caring
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: I was told that I would be contacted to receive an appt today it never happened.I tried to contact the hospital for an appt could not get anyone to answer or return my call
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: No
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: No
+Dirty: Unknown
+Risks/Challenges: user_error
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: It was very fast when they took care of me and treated my son well. Thank you for taking care of our children. [person_name] bless you for taking care of all the people, always protect their lives. [person_name] bless you always..
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Yes
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: Yes
+Dirty: Unknown
+Risks/Challenges: unknown
+Actions/Strategies: staff_interaction
+Facilitators: resources_caring
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: The nurses were unbelievably helpful and caring.
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: Yes
+Trust in Staff: Yes
+Feeling of Safety: Unknown
+Positive Experience: Yes
+Dirty: Unknown
+Risks/Challenges: unknown
+Actions/Strategies: unknown
+Facilitators: unknown
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: Everyone was pleasant from entrance in [person_name] & all staff until I was told by last lady in room. She said you can leave, I had to ask another staff member to call her back into room. I couldn't leave because I was hooked up to all the monitors and my finger was still connected to device that was taped. As young lady went to get the young lady. She came in room and said I was told I had a tone with you, & I said that was not the case, I'm hooked up to all this stuff after you told me I could leave. She was very fast talking, and rushing in a manner that made me feel uncomfortable. However the 2 ladies at waiting room admission was nice, nurse in my room was kind, insurance worker was kind, and make [person_name] was very humble and nice. Just the one lady that discharged me in that unprofessional manner was disturbing.
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+Expectations Met: No
+Trust in Staff: Unknown
+Feeling of Safety: Unknown
+Positive Experience: No
+Dirty: Unknown
+Risks/Challenges: user_error
+Actions/Strategies: unknown
+Facilitators: resources_caring
+Visit Rating: nan<|eot_id|>
+
+<|start_header_id|>user<|end_header_id|>Patient Feedback: hospital
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>

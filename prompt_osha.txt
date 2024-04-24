@@ -1,0 +1,55 @@
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+# Task:
+The events you are given are OSHA incident reports
+Label the data based on the different fields.
+If there is no context for the field, return 'unknown' for the field.
+Because the comments are anonymized, [person_name] represents an identify name that has been anonymized.
+If the comment is '(BLANK)', '(INAUDIBLE)' or '(unreadable)', just label 'unknown' for all categories unless you can extract meaningful statements.
+If the comment appears incomplete or a fragment, just label 'unknown' for all categories unless you can extract meaningful statements.
+Return only the label structure as follows:
+
+# Output Structure:
+Fatal: [Label]
+Fault: [Label]
+Job: [Label]
+Incident Severity: [1-5]
+Cause: [Word]
+
+# Output Labels:
+Fatal:
+This field evaluates if the incident was fatal. Possible labels:
+yes: The incident was fatal. Somebody died.
+no: The incident was not fatal. Nobody died.
+unknown: It is unclear or not recorded whether the incident was fatal or not.
+
+Fault:
+This field evaluates who was at fault for the incident. Possible labels:
+employee: From the incident description, the employee was not taking correct safety measures or misusing equipment.
+company: From the incident description, the company failed to ensure that adequate safety measures were taken.
+other: It was not the company or employee's fault that the incident occured.
+
+Job:
+The type of job that the incident refers to. Possible Labels:
+agriculture
+construction
+manufacturing
+retail
+other: If Unknown
+
+Incident Severity:
+Return a number from 1 to 5 depending on how severe the incident was.
+1: Worst
+2: Severe
+3. Bad
+4. Average
+5. Not Severe
+unknown: Default, if a score cannot be inferred from the event.
+
+Cause:
+This field is one word, max 13 characters. Return the cause of the incident, or 'unknown' if it is not recorded.
+
+<|eot_id|>
+
+
+<|start_header_id|>user<|end_header_id|>Incident: osha
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>

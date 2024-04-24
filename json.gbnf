@@ -1,0 +1,18 @@
+# Root rule defining the entire labeling output
+root ::= label
+
+# Each label must be a field name followed by one of the allowed labels for that field
+label ::= expectation trust safety experience dirty risk action facilitator score
+
+# Definitions for each label type
+expectation ::= "Expectations Met: " ("yes" | "no" | "unknown") "\n"
+trust ::= "Trust in Staff: " ("yes" | "no" | "unknown") "\n"
+safety ::= "Feeling of Safety: " ("yes" | "no" | "unknown") "\n"
+experience ::= "Positive Experience: " ("yes" | "no" | "unknown") "\n"
+dirty ::= "Dirty: " ("yes" | "no" | "unknown") "\n"
+score ::= "Visit Rating: " ([1-5] | "unknown") "\n"
+risk ::= "Risks/Challenges: " ("unknown" | "user_error" | "insurance_issue" | "waiting_time" | "safety_resources" |
+                "public_concern" | "safety_concern" | "public_external" | "resources_waiting" |
+                "waiting_external" | "insurance_error" | "safety_waiting" | "safety_user" | "user_waiting") "\n"
+action ::= "Actions/Strategies: " ("unknown" | "communication_staff" | "communication_interaction" | "use_resources") "\n"
+facilitator ::= "Facilitators: " ("unknown" | "resources_caring" | "resources_documentation" | "quick_response") "\n"
